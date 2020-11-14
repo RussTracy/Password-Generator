@@ -4,23 +4,46 @@
 var pwLength = function() {
   var lengthValue = "";
   // prompt cannot be empty, be less than 8, more than 128 and cannot contain text
-  while (lengthValue === "" || lengthValue === null || parseInt(lengthValue) < 8 || parseInt(lengthValue) > 128 || isNaN(parseInt(lengthValue))){
+  while (lengthValue === "" || parseInt(lengthValue) < 8 || parseInt(lengthValue) > 128 || isNaN(parseInt(lengthValue))){
     lengthValue = prompt('Choose Password Length: 8 - 128');
   }
-  console.log("password length is " + lengthValue)
+  console.log("Password length: " + lengthValue)
   return lengthValue;
 }
 
-
 function generatePassword(){
-   
+
   var passwordLength =  pwLength(); // Length of Password Requestd
-  var passwordcharacters = "abcdefghijklmnopqrstuvwxyz"; // Type of Characters to be used in password
+  var lowerCase = window.confirm('Lowercase Letters?'); // Use Lowercase Letters?
+  var upperCase = window.confirm('Uppercase Letters?'); // Use Uppercase Letters?
+  var numbers = window.confirm('Numbers?'); // Use Numbers?
+  var special = window.confirm('Special Characters?'); // Use Special Characters?
+  var passwordCharacters = "";
   var newPassword = "" 
 
-for (var i = 0, password = passwordcharacters.length; i < passwordLength; ++i) {
-  newPassword += passwordcharacters.charAt(Math.floor(Math.random() * password))
+  if (lowerCase){
+    passwordCharacters = "abcdefghijklmnopqrstuvwxyz";
+  }
+  if (upperCase){
+    passwordCharacters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if (numbers){
+    passwordCharacters += "0123456789";
+  }
+  if (special){
+    passwordCharacters += " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+  }
+  // If no character options are selected, alert message and begin again.
+  if (lowerCase === false && upperCase === false && numbers === false && special === false){
+  window.alert("Please select at least one password criteria.");
+    generatePassword();
+  }
+  console.log("Use Characters: " + passwordCharacters);
+
+for (var i = 0; i < passwordLength; i++) {
+  newPassword += passwordCharacters.charAt(Math.floor(Math.random() * passwordCharacters.length))
 }
+ console.log("Pasword is: " + newPassword)
  return newPassword;
 }
 
