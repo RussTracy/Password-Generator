@@ -1,50 +1,53 @@
 // Assignment code here
 
 // Function to capture the proper password length or continue to prompt
-var pwLength = function() {
+var pwLength = function () {
+
   var lengthValue = "";
   // prompt cannot be empty, be less than 8, more than 128 and cannot contain text
-  while (lengthValue === "" || parseInt(lengthValue) < 8 || parseInt(lengthValue) > 128 || isNaN(parseInt(lengthValue))){
+  while (lengthValue === "" || parseInt(lengthValue, 10) < 8 || parseInt(lengthValue, 10) > 128 || isNaN(parseInt(lengthValue, 10))) {
     lengthValue = prompt('Choose Password Length: 8 - 128');
   }
-  console.log("Password length: " + lengthValue)
+  console.log("Password length: " + lengthValue);
   return lengthValue;
-}
 
-function generatePassword(){
+};
 
-  var passwordLength =  pwLength(); // Length of Password Requestd
+function generatePassword() {
+
+  var passwordLength = pwLength(); // Length of Password Requestd
   var lowerCase = window.confirm('Lowercase Letters?'); // Use Lowercase Letters?
   var upperCase = window.confirm('Uppercase Letters?'); // Use Uppercase Letters?
   var numbers = window.confirm('Numbers?'); // Use Numbers?
   var special = window.confirm('Special Characters?'); // Use Special Characters?
-  var passwordCharacters = "";
-  var newPassword = "" 
+  passwordCharacters = "";
+  newPassword = "";
 
-  if (lowerCase){
+  if (lowerCase) {
     passwordCharacters = "abcdefghijklmnopqrstuvwxyz";
   }
-  if (upperCase){
+  if (upperCase) {
     passwordCharacters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   }
-  if (numbers){
+  if (numbers) {
     passwordCharacters += "0123456789";
   }
-  if (special){
+  if (special) {
     passwordCharacters += " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
   }
   // If no character options are selected, alert message and begin again.
-  if (lowerCase === false && upperCase === false && numbers === false && special === false){
-  window.alert("Please select at least one password criteria.");
+  if (lowerCase === false && upperCase === false && numbers === false && special === false) {
+    window.alert("Please select at least one password criteria.");
     generatePassword();
   }
   console.log("Use Characters: " + passwordCharacters);
 
-for (var i = 0; i < passwordLength; i++) {
-  newPassword += passwordCharacters.charAt(Math.floor(Math.random() * passwordCharacters.length))
-}
- console.log("Pasword is: " + newPassword)
- return newPassword;
+  for (var i = 0; i < passwordLength; i++) {
+    newPassword += passwordCharacters.charAt(Math.floor(Math.random() * passwordCharacters.length));
+  }
+  console.log("Pasword is: " + newPassword);
+  return newPassword;
+
 }
 
 // Get references to the #generate element
@@ -52,6 +55,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
